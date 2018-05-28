@@ -9,14 +9,71 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
     <title>Hello, world!</title>
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
+    </head>
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <h1>Hello, world!</h1>
+            </div>
+            <div class="row">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Song Title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Artist Name</h6>
+                        <p class="card-text">Some notes about the song</p>
+                        <a href="#" class="btn btn-primary">Chord Char (Am)</a>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Song Title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Artist Name</h6>
+                        <p class="card-text">Some notes about the song</p>
+                        <a href="#" class="btn btn-primary">Chord Char (Am)</a>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Song Title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Artist Name</h6>
+                        <p class="card-text">Some notes about the song</p>
+                        <a href="#" class="btn btn-primary">Chord Char (Am)</a>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Song Title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Artist Name</h6>
+                        <p class="card-text">Some notes about the song</p>
+                        <a href="#" class="btn btn-primary">Chord Char (Am)</a>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Song Title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Artist Name</h6>
+                        <p class="card-text">Some notes about the song</p>
+                        <a href="#" class="btn btn-primary">Chord Char (Am)</a>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-  </body>
+        <div class="row">
+                <iframe id="myframe" src=""></iframe>
+        </div>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+            function codeAddress() {
+                var iframe = document.getElementById("myframe");
+                iframe.width = '100%';
+                iframe.height = '600';
+                iframe.src = 'http://spreadsheets.google.com/tq?tqx=out:html&tq=select%20*&key=1HLecXVUa9e6D4K9Fr-3S9eHsWDiOAYBK-nQ4u8nQenU';
+            }
+            window.onload = codeAddress;
+            </script>
+    </body>
 </html>
