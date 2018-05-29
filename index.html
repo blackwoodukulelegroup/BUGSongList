@@ -15,14 +15,17 @@
             <div class="jumbotron">
                 <h1>BUG Song List</h1>
             </div>
-            <div id="songcontainer" class="row">
-                <!-- Template for card
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Song Title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Artist Name</h6>
-                        <p class="card-text">Some notes about the song</p>
-                        <a href="#" class="btn btn-primary">Chord Char (Am)</a>
+            <!-- <div id="songcontainer" class="card-deck"> -->
+            <div id="songcontainer">
+                <!-- Template for cards
+                <div class="card-deck"
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Song Title</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Artist Name</h6>
+                            <p class="card-text">Some notes about the song</p>
+                            <a href="#" class="btn btn-primary">Chord Char (Am)</a>
+                        </div>
                     </div>
                 </div>
                 -->
@@ -39,6 +42,7 @@
                     var link = document.createElement("a");
                     link.className = className;
                     link.href = href;
+                    link.target = "_blank";
                     link.appendChild(document.createTextNode(text));
                     return link;
                 }  else { return null }
@@ -67,8 +71,8 @@
             function makeNewCard(element){
 
                 var card = document.createElement("div");
-                card.className = "card";
-                card.style = "width:18rem;";
+                card.className = "card text-center";
+                // card.style = "width:18rem;";
 
                 var cardBody = document.createElement("div");
                 cardBody.className = "card-body";
@@ -86,7 +90,7 @@
 
                 var cardBodyText = document.createElement("p");
                 cardBodyText.className = "card-text";
-                cardBodyText.appendChild(document.createTextNode("notes"));
+                cardBodyText.appendChild(document.createTextNode(""));
                 cardBody.appendChild(cardBodyText);
 
                 assignAttributToCard(card, element.gsx$attributename.$t, element.gsx$attributetype.$t, element.gsx$attributevalue.$t);
@@ -108,6 +112,10 @@
                 var container = document.getElementById('songcontainer');
                 var songMap = {};
 
+                var cardDeck = document.createElement("div");
+                cardDeck.className = "card-deck";
+                var colCount = 0;
+
                 songData.feed.entry.forEach(element => {
 
                     console.info("Title:", element.gsx$title.$t, "Artist:", element.gsx$artist.$t, "Attribute:", element.gsx$attributename.$t, "Type:", element.gsx$attributetype.$t, "Value:", element.gsx$attributevalue.$t);
@@ -121,7 +129,21 @@
                         songMap[songKey] = cardId;
                         card = makeNewCard(element);
                         card.id = cardId; 
-                        container.appendChild(card);
+                        var col = document.createElement("div");
+                        col.className = "col-sm-4";
+                        col.appendChild(card);
+                        // container.appendChild(col);
+
+                        // add the card to the deck
+                        cardDeck.appendChild(card);
+                        colCount=colCount+1;
+                        if ( colCount == 3) {
+                            container.appendChild(cardDeck);
+                            cardDeck = document.createElement("div");
+                            cardDeck.className = "card-deck mt-4";
+                            colCount = 0;
+                        }
+
                     } else {
                         // find the existing card and update it
                         card = document.getElementById(cardId);
@@ -133,7 +155,10 @@
                     }
                     
                 });
-            }
+                
+                // flush any remaining cards to the DOM
+                if ( colCount != 0 ) { container.appendChild(cardDeck); }
+           }
         </script>
 
         <!-- Data Source -->
