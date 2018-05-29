@@ -29,10 +29,9 @@
             </div>
         </div>
         <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <!-- NOT REQUIRED: <script src="js/jquery-3.3.1.min.js"></script> -->
         <!-- NOT REQUIRED: <script src="js/popper.js/1.14.3/umd/popper.min.js"></script> -->
-        <script src="js/bootstrap.min.js"></script>
+        <!-- NOT REQUIRED: <script src="js/bootstrap.min.js"></script> -->
         <script type="text/javascript">
             
             function makeCardLink(className, href, text){
@@ -55,7 +54,7 @@
                             if ( newLink ) { cardBody.appendChild( newLink ); }
                             break;
                         }
-                        case 'Notes':
+                        case 'Text':
                         {
                             card.getElementsByClassName('card-text')[0].innerText = attributeValue;
                             break;
