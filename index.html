@@ -104,8 +104,7 @@
                 return text;
                 }
 
-
-            function myFunc(songData){
+            function loadData(songData){
                 var container = document.getElementById('songcontainer');
                 var songMap = {};
 
@@ -137,7 +136,8 @@
             }
         </script>
 
-        <script src="https://spreadsheets.google.com/feeds/list/1HLecXVUa9e6D4K9Fr-3S9eHsWDiOAYBK-nQ4u8nQenU/od6/public/values?alt=json-in-script&callback=myFunc"></script>
+        <!-- Data Source -->
+        <script src="https://spreadsheets.google.com/feeds/list/1HLecXVUa9e6D4K9Fr-3S9eHsWDiOAYBK-nQ4u8nQenU/od6/public/values?alt=json-in-script&callback=loadData"></script>
        
     </body>
 </html>
