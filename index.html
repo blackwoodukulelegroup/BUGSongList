@@ -13,9 +13,10 @@
     <body>
         <div class="container">
             <div class="jumbotron">
-                <h1>Hello, world!</h1>
+                <h1>BUG Song List</h1>
             </div>
-            <div class="row">
+            <div id="songcontainer" class="row">
+                <!-- Template for card
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">Song Title</h5>
@@ -24,56 +25,120 @@
                         <a href="#" class="btn btn-primary">Chord Char (Am)</a>
                     </div>
                 </div>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Song Title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Artist Name</h6>
-                        <p class="card-text">Some notes about the song</p>
-                        <a href="#" class="btn btn-primary">Chord Char (Am)</a>
-                    </div>
-                </div>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Song Title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Artist Name</h6>
-                        <p class="card-text">Some notes about the song</p>
-                        <a href="#" class="btn btn-primary">Chord Char (Am)</a>
-                    </div>
-                </div>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Song Title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Artist Name</h6>
-                        <p class="card-text">Some notes about the song</p>
-                        <a href="#" class="btn btn-primary">Chord Char (Am)</a>
-                    </div>
-                </div>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Song Title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Artist Name</h6>
-                        <p class="card-text">Some notes about the song</p>
-                        <a href="#" class="btn btn-primary">Chord Char (Am)</a>
-                    </div>
-                </div>
+                -->
             </div>
-
-        <div class="row">
-                <iframe id="myframe" src=""></iframe>
         </div>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/popper.js/1.14.3/umd/popper.min.js"></script>
+        <!-- NOT REQUIRED: <script src="js/jquery-3.3.1.min.js"></script> -->
+        <!-- NOT REQUIRED: <script src="js/popper.js/1.14.3/umd/popper.min.js"></script> -->
         <script src="js/bootstrap.min.js"></script>
         <script type="text/javascript">
-            function codeAddress() {
-                var iframe = document.getElementById("myframe");
-                iframe.width = '100%';
-                iframe.height = '600';
-                iframe.src = 'https://spreadsheets.google.com/tq?tqx=out:html&tq=select%20*&key=1HLecXVUa9e6D4K9Fr-3S9eHsWDiOAYBK-nQ4u8nQenU';
+            
+            function makeCardLink(className, href, text){
+                if ( href != '' ) {
+                    var link = document.createElement("a");
+                    link.className = className;
+                    link.href = href;
+                    link.appendChild(document.createTextNode(text));
+                    return link;
+                }  else { return null }
             }
-            window.onload = codeAddress;
-            </script>
+
+            function assignAttributToCard(card, attributeName, attributeType, attributeValue){
+                var cardBody = card.getElementsByClassName('card-body')[0];
+                if ( attributeValue != '' && attributeType != '' && attributeName != '' ) {
+                    switch(attributeType){
+                        case 'URL':
+                        {
+                            var newLink = makeCardLink("btn btn-primary", attributeValue, attributeName);
+                            if ( newLink ) { cardBody.appendChild( newLink ); }
+                            break;
+                        }
+                        case 'Notes':
+                        {
+                            card.getElementsByClassName('card-text')[0].innerText = attributeValue;
+                            break;
+                        }
+                    }
+                }
+                return null;
+            }
+
+            function makeNewCard(element){
+
+                var card = document.createElement("div");
+                card.className = "card";
+                card.style = "width:18rem;";
+
+                var cardBody = document.createElement("div");
+                cardBody.className = "card-body";
+                card.appendChild(cardBody);
+
+                var cardTitle = document.createElement("h5");
+                cardTitle.className = "card-title";
+                cardTitle.appendChild(document.createTextNode(element.gsx$title.$t));
+                cardBody.appendChild(cardTitle);
+
+                var cardSubTitle = document.createElement("h6");
+                cardSubTitle.className = "card-subtitle mb-2 text-muted";
+                cardSubTitle.appendChild(document.createTextNode(element.gsx$artist.$t))
+                cardBody.appendChild(cardSubTitle);
+
+                var cardBodyText = document.createElement("p");
+                cardBodyText.className = "card-text";
+                cardBodyText.appendChild(document.createTextNode("notes"));
+                cardBody.appendChild(cardBodyText);
+
+                assignAttributToCard(card, element.gsx$attributename.$t, element.gsx$attributetype.$t, element.gsx$attributevalue.$t);
+
+                return card;
+            }
+
+            function makeid(idLength) {
+                var text = "";
+                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+                for (var i = 0; i < idLength; i++)
+                    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+                return text;
+                }
+
+
+            function myFunc(songData){
+                var container = document.getElementById('songcontainer');
+                var songMap = {};
+
+                songData.feed.entry.forEach(element => {
+
+                    console.info("Title:", element.gsx$title.$t, "Artist:", element.gsx$artist.$t, "Attribute:", element.gsx$attributename.$t, "Type:", element.gsx$attributetype.$t, "Value:", element.gsx$attributevalue.$t);
+
+                    var songKey = element.gsx$title.$t + "-" + element.gsx$title.$t;
+                    var cardId = songMap[songKey];
+                    
+                    if ( cardId == null ) {
+                        // create a new card
+                        cardId = makeid(16);
+                        songMap[songKey] = cardId;
+                        card = makeNewCard(element);
+                        card.id = cardId; 
+                        container.appendChild(card);
+                    } else {
+                        // find the existing card and update it
+                        card = document.getElementById(cardId);
+                        if ( card != null ) {
+                            assignAttributToCard(card, element.gsx$attributename.$t, element.gsx$attributetype.$t, element.gsx$attributevalue.$t);
+                        } else {
+                            console.log("ERROR: Could not located existing card for " + element.gsx$title.$t);
+                        }
+                    }
+                    
+                });
+            }
+        </script>
+
+        <script src="https://spreadsheets.google.com/feeds/list/1HLecXVUa9e6D4K9Fr-3S9eHsWDiOAYBK-nQ4u8nQenU/od6/public/values?alt=json-in-script&callback=myFunc"></script>
+       
     </body>
 </html>
