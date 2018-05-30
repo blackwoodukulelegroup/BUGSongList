@@ -117,16 +117,22 @@
                 cardDeck.className = "card-deck";
                 var colCount = 0;
 
-                songData.feed.entry.forEach(element => {
+                var feedArray = songData.feed.entry;
+
+                feedArray.sort(function(a,b) {return (a.gsx$title.$t > b.gsx$title.$t) ? 1 : ((b.gsx$title.$t > a.gsx$title.$t) ? -1 : 0);} );
+
+                feedArray.forEach(element => {
 
                     console.info("Title:", element.gsx$title.$t, "Artist:", element.gsx$artist.$t, "Attribute:", element.gsx$attributename.$t, "Type:", element.gsx$attributetype.$t, "Value:", element.gsx$attributevalue.$t);
 
                     var songKey = element.gsx$title.$t + "-" + element.gsx$title.$t;
                     var cardId = songMap[songKey];
+
                     
                     if ( cardId == null ) {
                         // create a new card
                         cardId = makeid(16);
+                        console.info("Created Card ID", cardId)
                         songMap[songKey] = cardId;
                         card = makeNewCard(element);
                         card.id = cardId; 
@@ -146,8 +152,9 @@
                         }
 
                     } else {
-                        // find the existing card and update it
-                        card = document.getElementById(cardId);
+                        // find the existing card, either in the DOM, or current card deck
+                        console.info("Looking up card ID", cardId);
+                        card = document.getElementById(cardId) || cardDeck.children.namedItem(cardId);
                         if ( card != null ) {
                             assignAttributToCard(card, element.gsx$attributename.$t, element.gsx$attributetype.$t, element.gsx$attributevalue.$t);
                         } else {
