@@ -5,16 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <!--
-      bump - to force github to publish latest version
-    -->
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
     <title>BUG Song List</title>
     </head>
     <body>
+
         <div class="container">
             <div class="jumbotron">
                 <h1>BUG Song List</h1>
@@ -25,10 +22,25 @@
                   <a class="btn btn-primary" href="https://drive.google.com/open?id=13udLJf_IUVWq7uW1T8H3V_BUCiTPGPC1" role="button">Browse BUG Google Drive</a>
                 </p>
             </div>
-            <!-- <div id="songcontainer" class="card-deck"> -->
-            <div id="songcontainer">
-                <!-- Template for cards
+                <div id="songcontainer">
+                <!-- Template for card deck and cards (3 cards / card deck)
                 <div class="card-deck"
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Song Title</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Artist Name</h6>
+                            <p class="card-text">Some notes about the song</p>
+                            <a href="#" class="btn btn-primary">Chord Char (Am)</a>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Song Title</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Artist Name</h6>
+                            <p class="card-text">Some notes about the song</p>
+                            <a href="#" class="btn btn-primary">Chord Char (Am)</a>
+                        </div>
+                    </div>
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
                             <h5 class="card-title">Song Title</h5>
@@ -122,10 +134,11 @@
             function loadData(songData){
                 var container = document.getElementById('songcontainer');
                 var songMap = {};
+                var cardsPerDeck = 3;
 
                 var cardDeck = document.createElement("div");
                 cardDeck.className = "card-deck";
-                var colCount = 0;
+                var deckCardCount = 0;
 
                 var feedArray = songData.feed.entry;
 
@@ -149,16 +162,15 @@
                         var col = document.createElement("div");
                         col.className = "col-sm-4";
                         col.appendChild(card);
-                        // container.appendChild(col);
 
                         // add the card to the deck
                         cardDeck.appendChild(card);
-                        colCount=colCount+1;
-                        if ( colCount == 3) {
+                        deckCardCount++;
+                        if ( deckCardCount == cardsPerDeck ) {
                             container.appendChild(cardDeck);
                             cardDeck = document.createElement("div");
-                            cardDeck.className = "card-deck mt-4";
-                            colCount = 0;
+                            cardDeck.className = "card-deck mt-4"; // adding 'mt-4' sets top margin to seperate the rows of cards
+                            deckCardCount = 0;
                         }
 
                     } else {
@@ -175,7 +187,7 @@
                 });
                 
                 // flush any remaining cards to the DOM
-                if ( colCount != 0 ) { container.appendChild(cardDeck); }
+                if ( deckCardCount != 0 ) { container.appendChild(cardDeck); }
            }
         </script>
 
