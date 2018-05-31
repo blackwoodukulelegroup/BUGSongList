@@ -52,6 +52,10 @@
                 </div>
                 -->
             </div>
+            <hr/>
+            <div class="row">
+                <a class="btn btn-default" href="https://script.google.com/macros/s/AKfycbxI-MWuTbVUNMwQHjydzqSU8HtI3eJIrB_STr-2KkMX/dev">Admins only - click here to re-index Google Drive BUG Chord Charts</a>
+            </div>
         </div>
         <!-- Optional JavaScript -->
         <!-- NOT REQUIRED: <script src="js/jquery-3.3.1.min.js"></script> -->
@@ -62,7 +66,7 @@
             function makeCardLink(className, href, text){
                 if ( href != '' ) {
                     var link = document.createElement("a");
-                    link.className = className;
+                    link.className = className + ' ml-1';
                     link.href = href;
                     link.target = "_blank";
                     link.setAttribute("role", "button");
