@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">a
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <title>Adding songs to the BUG Song List</title>
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="jumbotron">
+                <h1>Adding songs to the BUG Song List</h1>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                <p>There are two ways to add songs to the BUG song list; as a link (e.g. to a Scorpex PDF), or as a custom PDF</p>
+                <h2>Adding links to external sites/PDFs</h2>
+                <ol>
+                    <li>Open the <a href="https://drive.google.com/open?id=1knci7kb7oMC2r_geCIu5o_J2wy-Px1kdoHH_0fnq5IA" target="_blank">BUG chord Charts</a> spreadsheet<br>NB - You need to log on as a Google user with read/write access</li>
+                    <li>Go to the <strong>Songs</strong> tab</li>
+                    <li>Add an entry as follows:</li>
+                    <ul>
+                        <li>Title - Title of the song e.g. <strong>26 Miles</strong></li>
+                        <li>Artist - Who wrote, or most notably performed the song e.g. <strong>The Four Preps</strong></li>
+                        <li>AttributeName - <strong>Chart (key)</strong> e.g. <strong>Chart (C)</strong> if the song is in C major</li>
+                        <li>AttributeType - <strong>URL</strong></li>
+                        <li>AttributeValue - The link to the PDF or song page e.g. <strong>https://scorpexuke.com/pdffiles/26_Miles.pdf</strong></li>
+                        <li>EntryType - <strong>ManualEntry</strong></li>
+                    </ul>
+                    <li>The sheet should save automatically (no need to do File/Save)</li>
+                    <li>Open up the <a href="index.html" target="_blank">Song List</a> and check that the new entry appears.
+                        <br>If you can't see the entry, try doing a full refresh by pressing <kbd><kbd>ctrl</kbd> + <kbd>F5</kbd></kbd>.
+                        <br>If you still can't see the entry, re-open the spreadsheet and check the entry is correct.</li>
+                </ol>
+                <h2>Adding custom PDFs</h2>
+                <ol>
+                    <li>PDFs need to be named in this format: [Song Title] - [Artist Name] - BUG ([key]).PDF
+                        <br>e.g. <strong>26 Miles - The Four Preps - BUG (C).pdf</strong> 
+                        <br>NB. PDFs can be renamed before, or after uploading into Google Drive.
+                    </li>
+                    <li>Upload the PDF file to <a href="https://drive.google.com/open?id=13udLJf_IUVWq7uW1T8H3V_BUCiTPGPC1" target="_blank">BUG Chord Charts folder</a> in the Blackwood Uke Group Google Drive.
+                        <br>NB - You need to log on as a Google user with read/write access
+                    </li>
+                    <li>Open the <a href="https://script.google.com/macros/s/AKfycbxI-MWuTbVUNMwQHjydzqSU8HtI3eJIrB_STr-2KkMX/dev" target="_blank">Google Drive Reindex</a> script and click the <strong>Click to start indexing</strong>strong> button.</strong></li>
+                    <li>Open up the <a href="index.html" target="_blank">Song List</a> and check that the new entry appears.
+                        <br>If you can't see the entry, try doing a full refresh by pressing <kbd><kbd>ctrl</kbd> + <kbd>F5</kbd></kbd>.
+                        <br>If you still can't see the entry, or it doesn't look right, check the name is in the right format.
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <!-- Optional JavaScript -->
+        <!-- NOT REQUIRED: <script src="js/jquery-3.3.1.min.js"></script> -->
+        <!-- NOT REQUIRED: <script src="js/popper.js/1.14.3/umd/popper.min.js"></script> -->
+        <!-- NOT REQUIRED: <script src="js/bootstrap.min.js"></script> -->
+        
+        <!-- Data Source -->
+        <!-- <script src="https://spreadsheets.google.com/feeds/list/1HLecXVUa9e6D4K9Fr-3S9eHsWDiOAYBK-nQ4u8nQenU/od6/public/values?alt=json-in-script&callback=loadData"></script> -->
+        <script src="https://spreadsheets.google.com/feeds/list/1knci7kb7oMC2r_geCIu5o_J2wy-Px1kdoHH_0fnq5IA/od6/public/values?alt=json-in-script&callback=loadData"></script>
+               
+    </body>
+</html>
