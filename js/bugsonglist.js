@@ -88,7 +88,8 @@ function loadData(songData){
 
         console.info("Title:", element.gsx$title.$t, "Artist:", element.gsx$artist.$t, "Attribute:", element.gsx$attributename.$t, "Type:", element.gsx$attributetype.$t, "Value:", element.gsx$attributevalue.$t);
 
-        var songKey = element.gsx$title.$t + "-" + element.gsx$title.$t;
+        // var songKey = element.gsx$title.$t + "-" + element.gsx$title.$t;
+        var songKey = (element.gsx$title.$t + "-" + element.gsx$artist.$t).toUpperCase();
         var cardId = songMap[songKey];
 
         
