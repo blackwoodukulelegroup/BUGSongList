@@ -4,7 +4,7 @@ function makeCardLink(className, href, text){
         link.className = className + ' ml-1 mt-1';
         link.href = href;
         link.target = "_blank";
-        link.type = "button"
+        // link.type = "button"
         link.setAttribute("role", "button");
         link.appendChild(document.createTextNode(text));
         return link;
