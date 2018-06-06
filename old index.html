@@ -22,9 +22,7 @@
             </div>
             <div id="searchbar" class="row">
                 <div class="col-sm-12">
-                    <form id="searchForm" onsubmit="searchSongs(); return false">
-                        <input type="text" name="searchInput" id="searchInput" placeholder=" Type the name of a song, or an artist/writer" style="width:100%">
-                    </form>
+                    <input type="search" name="searchInput" id="searchInput" placeholder=" Type the name of a song, or an artist/writer" style="width:100%" onsearch="searchSongs()">
                 </div>
             </div>
             <hr/>
