@@ -176,4 +176,6 @@ function searchSongs(){
 var songListData = {};
 
 // Make the initial call to load data from API
-getSongListFromAPI("https://script.google.com/macros/s/AKfycbx-0s1grPv0Wj_wXZUDRggB7Eac_c4TGHkMQ1aNOcNv41eCeg/exec");
+var apiURL = "https://script.google.com/macros/s/AKfycbx-0s1grPv0Wj_wXZUDRggB7Eac_c4TGHkMQ1aNOcNv41eCeg/exec"
+
+getSongListFromAPI(apiURL + "?browser=" + encodeURI(navigator.appName) + "&browserVersion=" + encodeURI(navigator.appVersion));
