@@ -38,7 +38,11 @@
         <script>
             function searchSongs(){
                 var searchValue = document.getElementById("searchInput").value;
-                
+                if (searchValue) {
+                    alert('searching for: ' + searchValue);
+                } else {
+                    alert('showing all songs');
+                }
             }
         </script>
     </body>
