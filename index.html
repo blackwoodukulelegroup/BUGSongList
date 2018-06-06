@@ -21,49 +21,19 @@
                   
                 </p>
             </div>
-                <div id="songcontainer">
-                    <div class="alert alert-primary" role="alert">
-                                    The song list is loading - please wait a moment.
-                    </div>
-                            
-                <!-- Template for card deck and cards (3 cards / card deck)
-                <div class="card-deck"
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Song Title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Artist Name</h6>
-                            <p class="card-text">Some notes about the song</p>
-                            <a href="#" class="btn btn-primary">Chord Char (Am)</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Song Title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Artist Name</h6>
-                            <p class="card-text">Some notes about the song</p>
-                            <a href="#" class="btn btn-primary">Chord Char (Am)</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Song Title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Artist Name</h6>
-                            <p class="card-text">Some notes about the song</p>
-                            <a href="#" class="btn btn-primary">Chord Char (Am)</a>
-                        </div>
-                    </div>
+            <div id="searchbar" class="row">
+                <div class="col-sm-12">
+                    <input type="search" name="searchInput" id="searchInput" placeholder=" Type the name of a song, or an artist/writer" style="width:100%" onsearch="searchSongs()">
                 </div>
-                -->
+            </div>
+            <hr/>
+            <div id="songcontainer">
+                <div class="alert alert-primary" role="alert">The song list is loading - please wait a moment.</div>
             </div>
             <hr/>
         </div>
 
         <!-- Song List Code -->
-        <!-- <script src="js/bugsonglist.js"></script> -->
         <script src="js/bugsonglistv2.js"></script>
-        
-        <!-- Data Source -->
-        <!-- <script src="https://spreadsheets.google.com/feeds/list/1knci7kb7oMC2r_geCIu5o_J2wy-Px1kdoHH_0fnq5IA/ol9i3sy/public/values?alt=json-in-script&callback=loadData"></script> -->
-
     </body>
 </html>

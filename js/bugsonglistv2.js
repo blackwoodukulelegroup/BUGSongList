@@ -22,7 +22,7 @@ function assignAttributToCard(card, attributeName, attributeType, attributeValue
             }
             case 'Text':
             {
-                card.getElementsByClassName('card-text')[0].innerText = attributeValue;
+                card.getElementsByClassName('card-text')[0].appendChild(document.createTextNode(attributeValue));
                 break;
             }
         }
@@ -30,7 +30,7 @@ function assignAttributToCard(card, attributeName, attributeType, attributeValue
     return null;
 }
 
-function makeNewCard(songName, songInfo){
+function makeNewCard(songInfo){
 
     var card = document.createElement("div");
     card.className = "card text-center";
@@ -41,7 +41,7 @@ function makeNewCard(songName, songInfo){
 
     var cardTitle = document.createElement("h5");
     cardTitle.className = "card-title";
-    cardTitle.appendChild(document.createTextNode(songName));
+    cardTitle.appendChild(document.createTextNode(songInfo.title));
     cardBody.appendChild(cardTitle);
 
     var cardSubTitle = document.createElement("h6");
@@ -66,44 +66,59 @@ function makeNewCard(songName, songInfo){
     return card;
 }
 
-function RenderSongList(songList){
+function RenderSongList(songList, searchTerm){
 
     var container = document.createElement('div');
+
+    var regEx = new RegExp(searchTerm, "i");
 
     var cardsPerDeck = 3;
     var cardDeck = document.createElement("div");
     cardDeck.className = "card-deck";
     var deckCardCount = 0;
+    var shownCardCount = 0;
 
     var orderedKeys = Object.keys(songList).sort();
     for (var i=0; i<orderedKeys.length; i++) {
-        var songName = orderedKeys[i];
-        var songInfo = songList[songName];
-        // console.log(songName + ' -> ' + songInfo.artist);
+        var songKey = orderedKeys[i];
+        var songInfo = songList[songKey];
 
-        var card = makeNewCard(songName, songInfo);
-        var col = document.createElement("div");
-        col.className = "col-sm-4";
-        col.appendChild(card);
+        searchMatch = regEx.test(songInfo.title) || regEx.test(songInfo.artist);
 
-        cardDeck.appendChild(card);
-        deckCardCount++;
+        if ( searchMatch ) {
+
+            var card = makeNewCard(songInfo);
+            var col = document.createElement("div");
+            col.className = "col-sm-4";
+            col.appendChild(card);
+            shownCardCount++;
+
+            cardDeck.appendChild(card);
+            deckCardCount++;
+        }
+
         if ( deckCardCount == cardsPerDeck ) {
             container.appendChild(cardDeck);
             cardDeck = document.createElement("div");
             cardDeck.className = "card-deck mt-4"; // adding 'mt-4' sets top margin to seperate the rows of cards
             deckCardCount = 0;
         }
-        
+
     }
 
     // flush any remaining cards to the container
     if ( deckCardCount != 0 ) { container.appendChild(cardDeck); }
 
+    if ( shownCardCount == 0 ) {
+        container.appendChild(getAlert("No matching songs found", "alert-warning"));
+    }
+
     // update the DOM
     var songcontainer = document.getElementById("songcontainer")
     emptyContainer(songcontainer);
     songcontainer.appendChild(container);
+
+    document.getElementById("searchInput").disabled = false;
 }
 
 function emptyContainer(element){
@@ -112,22 +127,34 @@ function emptyContainer(element){
     }
 }
 
-function showError(errorMessage){
-    var container = document.getElementById("songcontainer");
-    var errDiv = document.createElement("div");
-    errDiv.className = "alert alert-danger";
-    errDiv.innerText = errorMessage + " Please try again later, but if the behaviour persists, please notify BUG admins.";
-    emptyContainer(container);
-    container.appendChild(errDiv);
+function getAlert(messageText, classNames){
+    var alertDiv = document.createElement("div");
+    alertDiv.className = "alert " + classNames;
+    alertDiv.appendChild(document.createTextNode(messageText));
+    return alertDiv;
 }
 
-var webapi = "https://script.google.com/macros/s/AKfycbx-0s1grPv0Wj_wXZUDRggB7Eac_c4TGHkMQ1aNOcNv41eCeg/exec";
-var xmlhttp = new XMLHttpRequest();
-xmlhttp.onreadystatechange = function() {
+function showAlert(messageText, classNames){
+    var container = document.getElementById("songcontainer");
+    emptyContainer(container);
+    container.appendChild(getAlert(messageText, classNames));
+}
+
+function showError(errorMessage){
+    showAlert(errorMessage + " Please try again later, but if the behaviour persists, please notify BUG admins.", "alert-danger");
+}
+
+function getSongListFromAPI(webApiUrl){
+
+    showAlert("The song list is loading - please wait a moment.", "alert-primary");
+    document.getElementById('searchInput').disabled = true;
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        var songListData = JSON.parse(this.responseText);
+        songListData = JSON.parse(this.responseText);
         if ( songListData ) {
-            RenderSongList(songListData);
+            RenderSongList(songListData, "");
         } else {
             showError("Failed to load the song list from API.");
         }
@@ -136,6 +163,17 @@ xmlhttp.onreadystatechange = function() {
             showError("Failed to load the song list from API.");
         }
     }
-};
-xmlhttp.open("GET", webapi, true);
-xmlhttp.send();
+    };
+    xmlhttp.open("GET", webApiUrl, true);
+    xmlhttp.send();
+}
+
+function searchSongs(){
+    RenderSongList(songListData, document.getElementById("searchInput").value);
+}
+
+// Global var to hold list of songs
+var songListData = {};
+
+// Make the initial call to load data from API
+getSongListFromAPI("https://script.google.com/macros/s/AKfycbx-0s1grPv0Wj_wXZUDRggB7Eac_c4TGHkMQ1aNOcNv41eCeg/exec");
