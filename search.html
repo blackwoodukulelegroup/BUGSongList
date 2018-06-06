@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <title>TEST List</title>
+    </head>
+    <body>
+        <a style="float:right" href="admin.html">...</a>
+        <div class="container">
+            <div class="jumbotron">
+                <h1>TEST Song List</h1>
+                <hr>
+                <p class="lead">
+                  <a class="btn btn-primary" href="http://blackwoodukulelegroup.wordpress.com" role="button">BUG Website</a>
+                  
+                </p>
+            </div>
+            <div id="searchbar" class="row">
+                <div class="col-sm-12">
+                    <input type="search" name="searchInput" id="searchInput" placeholder=" Type the name of a song, or an artist/writer" style="width:100%" onsearch="searchSongs()">
+                </div>
+            </div>
+            <hr/>
+            <div id="songcontainer">
+                <div class="alert alert-primary" role="alert">The song list is loading - please wait a moment.</div>
+            </div>
+            <hr/>
+        </div>
+
+        <!-- Song List Code -->
+        <!-- <script src="js/bugsonglistv2.js"></script> -->
+        <script>
+            function searchSongs(){
+                var searchValue = document.getElementById("searchInput").value;
+                if (searchValue) {
+                    alert(searchValue);
+                }
+               
+            }
+        </script>
+    </body>
+</html>
