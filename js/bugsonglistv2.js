@@ -55,8 +55,9 @@ function makeNewCard(songInfo){
     cardBody.appendChild(cardBodyText);
 
     // iterate through properties, looking for Objects
+    // var attributeNames = ["url", "text"];
     for (var key in songInfo){
-        if ( songInfo[key].constructor.name == "Object" ) {
+        if ( ["url", "text"].includes(key.toLowerCase()) ) {
             // Iterate through object properties and assign card attributes accordingly
             for (var item in songInfo[key]){
                 assignAttributToCard(card, item, key, songInfo[key][item]);
