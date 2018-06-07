@@ -156,6 +156,7 @@ function hideAlert(){
 }
 
 function showError(errorMessage){
+    _LTracker.push({'event':'error', 'data':errorMessage});
     showAlert(errorMessage + " Please try again later, but if the behaviour persists, please notify BUG admins.", "alert-danger");
 }
 
@@ -171,6 +172,7 @@ function getSongListFromAPI(webApiUrl){
             if ( songListData ) {
                 var songCount = Object.keys(songListData).length;
                 if ( songCount > 0 ){
+                    _LTracker.push({'event':'API Success', 'data':songCount});
                     RenderSongList(songListData);
                     showAlert(songCount + " song(s) loaded.", "alert-success");
                     showDiv("searchbar", true);
