@@ -13,24 +13,30 @@
     <body>
         <a style="float:right" href="admin.html">...</a>
         <div class="container">
-            <div class="jumbotron">
+            
+            <div class="jumbotron pb-3 pt-2 mb-2" >
+                <p><a href="http://blackwoodukulelegroup.wordpress.com" role="button">BUG website</a></p>
                 <h1>BUG Song List</h1>
-                <hr>
-                <p class="lead">
-                  <a class="btn btn-primary" href="http://blackwoodukulelegroup.wordpress.com" role="button">BUG Website</a>
-                </p>
             </div>
-            <div id="searchbar" class="row">
-                <div class="col-sm-12">
-                    <form id="searchForm" onsubmit="searchSongs(); return false">
-                        <input type="text" name="searchInput" id="searchInput" placeholder=" Type the name of a song, or an artist/writer" style="width:100%">
-                    </form>
-                </div>
+            
+            <div id="searchbar">
+                <form id="searchForm" onsubmit="searchSongs(); return false">
+                    <div class="form-group row mb-2">
+                        <label for="searchInput" class="col-md-1 col-form-label text-md-right">Filter</label>
+                        <div class="col-md-11">
+                            <input class="form-control" type="text" name="searchInput" id="searchInput" placeholder="Type the name of a song, or an artist/writer">
+                        </div>
+                    </div>
+                </form>
             </div>
-            <hr/>
-            <div id="songcontainer">
-            </div>
-            <hr/>
+
+
+            <div id="alertDiv"></div>
+
+            <div id="songcontainer"></div>
+
+            <hr>
+
         </div>
 
         <!-- Song List Code -->

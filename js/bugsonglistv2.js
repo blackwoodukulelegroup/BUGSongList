@@ -10,6 +10,17 @@ function makeCardLink(className, href, text){
     }  else { return null }
 }
 
+function showDiv(divID, showStatus){
+    var x = document.getElementById(divID);
+    if ( x ) {
+        if ( showStatus ) {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+}
+
 function assignAttributToCard(card, attributeName, attributeType, attributeValue){
     var cardBody = card.getElementsByClassName('card-body')[0];
     if ( attributeValue != '' && attributeType != '' && attributeName != '' ) {
@@ -54,11 +65,8 @@ function makeNewCard(songInfo){
     cardBodyText.appendChild(document.createTextNode(""));
     cardBody.appendChild(cardBodyText);
 
-    // iterate through properties, looking for Objects
-    // var attributeNames = ["url", "text"];
     for (var key in songInfo){
         if ( ["url", "text"].indexOf(key.toLowerCase()) >= 0  ) {
-            // Iterate through object properties and assign card attributes accordingly
             for (var item in songInfo[key]){
                 assignAttributToCard(card, item, key, songInfo[key][item]);
             }
@@ -67,51 +75,54 @@ function makeNewCard(songInfo){
     return card;
 }
 
-function RenderSongList(songList, searchTerm){
+function filterSongList(songList, searchTerm){
 
-    var container = document.createElement('div');
-
+    var resultList = {};
     var regEx = new RegExp(searchTerm, "i");
 
+    var keyList = Object.keys(songList)
+
+    for (var i=0; i<keyList.length; i++) {
+        var songKey = keyList[i];
+        var songInfo = songList[songKey];
+
+        if ( regEx.test(songInfo.title) || regEx.test(songInfo.artist) ) { 
+            resultList[songKey] = songInfo;
+        }
+    }
+
+    return resultList;
+}
+
+function RenderSongList(songList){
+
+    var container = document.createElement('div');
     var cardsPerDeck = 3;
     var cardDeck = document.createElement("div");
     cardDeck.className = "card-deck";
     var deckCardCount = 0;
-    var shownCardCount = 0;
 
     var orderedKeys = Object.keys(songList).sort();
     for (var i=0; i<orderedKeys.length; i++) {
         var songKey = orderedKeys[i];
         var songInfo = songList[songKey];
-
-        searchMatch = regEx.test(songInfo.title) || regEx.test(songInfo.artist);
-
-        if ( searchMatch ) {
-
-            var card = makeNewCard(songInfo);
-            var col = document.createElement("div");
-            col.className = "col-sm-4";
-            col.appendChild(card);
-            shownCardCount++;
-
-            cardDeck.appendChild(card);
-            deckCardCount++;
-        }
-
+        var card = makeNewCard(songInfo);
+        var col = document.createElement("div");
+        col.className = "col-sm-4";
+        col.appendChild(card);
+        cardDeck.appendChild(card);
+        deckCardCount++;
         if ( deckCardCount == cardsPerDeck ) {
             container.appendChild(cardDeck);
             cardDeck = document.createElement("div");
             cardDeck.className = "card-deck mt-4"; // adding 'mt-4' sets top margin to seperate the rows of cards
             deckCardCount = 0;
         }
-
     }
 
     // flush any remaining cards to the container
-    if ( deckCardCount != 0 ) { container.appendChild(cardDeck); }
-
-    if ( shownCardCount == 0 ) {
-        container.appendChild(getAlert("No matching songs found", "alert-warning"));
+    if ( deckCardCount != 0 ) { 
+        container.appendChild(cardDeck); 
     }
 
     // update the DOM
@@ -119,7 +130,6 @@ function RenderSongList(songList, searchTerm){
     emptyContainer(songcontainer);
     songcontainer.appendChild(container);
 
-    document.getElementById("searchInput").disabled = false;
 }
 
 function emptyContainer(element){
@@ -136,9 +146,13 @@ function getAlert(messageText, classNames){
 }
 
 function showAlert(messageText, classNames){
-    var container = document.getElementById("songcontainer");
+    var container = document.getElementById("alertDiv");
     emptyContainer(container);
     container.appendChild(getAlert(messageText, classNames));
+}
+
+function hideAlert(){
+    emptyContainer(document.getElementById("alertDiv"));
 }
 
 function showError(errorMessage){
@@ -148,30 +162,54 @@ function showError(errorMessage){
 function getSongListFromAPI(webApiUrl){
 
     showAlert("The song list is loading - please wait a moment.", "alert-primary");
-    document.getElementById('searchInput').disabled = true;
+    showDiv("searchbar", false);
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        songListData = JSON.parse(this.responseText);
-        if ( songListData ) {
-            RenderSongList(songListData, "");
+        if (this.readyState == 4 && this.status == 200) {
+            songListData = JSON.parse(this.responseText);
+            if ( songListData ) {
+                var songCount = Object.keys(songListData).length;
+                if ( songCount > 0 ){
+                    RenderSongList(songListData);
+                    showAlert(songCount + " song(s) loaded.", "alert-success");
+                    showDiv("searchbar", true);
+                } else {
+                    showError("API responded, but no songs were loaded.");
+                }
+            } else {
+                showError("Failed to load the song list from API.");
+            }
         } else {
-            showError("Failed to load the song list from API.");
+            if (this.readyState == 4) {
+                showError("Failed to load the song list from API.");
+            }
         }
-    } else {
-        if (this.readyState == 4) {
-            showError("Failed to load the song list from API.");
-        }
-    }
     };
     xmlhttp.open("GET", webApiUrl, true);
     xmlhttp.send();
 }
 
 function searchSongs(){
-    RenderSongList(songListData, document.getElementById("searchInput").value);
+    var searchTerm = document.getElementById("searchInput").value
+    
+    if ( searchTerm ) {
+        var filteredSongs = filterSongList(songListData, searchTerm);
+        var filteredSongCount = Object.keys(filteredSongs).length;
+
+        if ( filteredSongCount > 0 ) {
+            RenderSongList(filteredSongs);
+            showAlert("Showing " + filteredSongCount + " song(s) that match '" + searchTerm + "'", "alert-success");
+        } else {
+            showAlert("No songs matching '" + searchTerm + "'", "alert-warning");
+        }
+    } else {
+        RenderSongList(songListData);
+        showAlert("Showing all " + Object.keys(songListData).length + " songs.", "alert-success");
+    }
+
 }
+
 
 // Global var to hold list of songs
 var songListData = {};
