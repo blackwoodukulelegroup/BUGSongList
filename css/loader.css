@@ -11,7 +11,7 @@
     border-radius: 50%;
     border-top: 8px solid #3498db;
     -webkit-animation: spin 1s linear infinite;
-    animation: spin 1s ease infinite;
+    animation: spin 1s linear infinite;
   }
   
   @-webkit-keyframes spin {
