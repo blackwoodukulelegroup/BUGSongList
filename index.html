@@ -45,26 +45,21 @@
 
                 <h1>BUG Song List</h1>
             </div>
-            
+
+            <div id="alertDiv"></div>
+
             <div id="searchbar">
                 <form id="searchForm" onsubmit="searchSongs(); return false">
                     <div class="form-group row mb-2">
-                        <label for="searchInput" class="col-md-1 col-form-label text-md-right">Filter</label>
-                        <div class="col-md-11">
-                            <input class="form-control" type="text" name="searchInput" id="searchInput" placeholder="Type the name of a song, or an artist/writer">
+                        <div class="col-md-12">
+                            <input class="form-control" type="text" name="searchInput" id="searchInput" placeholder="Search on title/artist">
                         </div>
                     </div>
                 </form>
             </div>
 
-            <div id="alertDiv"></div>
-
             <div id="songcontainer"></div>
-
-            <div id="loader">
-
-            </div>
-
+            <div id="loader"></div>
             <hr>
 
         </div>

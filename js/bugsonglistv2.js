@@ -161,7 +161,7 @@ function showError(errorMessage){
 
 function getSongListFromAPI(webApiUrl){
 
-    showAlert("The song list is loading - please wait a moment.", "alert-primary");
+    // showAlert("The song list is loading - please wait a moment.", "alert-primary");
     showDiv("searchbar", false);
 
     var xmlhttp = new XMLHttpRequest();
