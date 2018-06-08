@@ -177,7 +177,6 @@ function getSongListFromAPI(webApiUrl){
                     RenderSongList(songListData);
                     showAlert(songCount + " song(s) loaded.", "alert-success");
                     showDiv("searchbar", true);
-                    // showDiv("loader", false);
                 } else {
                     showError("API responded, but no songs were loaded.");
                 }
