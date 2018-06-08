@@ -165,8 +165,10 @@ function getSongListFromAPI(webApiUrl){
     showDiv("searchbar", false);
 
     var xmlhttp = new XMLHttpRequest();
+    xmlhttp.timeout = 30000;
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+            showDiv("loader", false);
             songListData = JSON.parse(this.responseText);
             if ( songListData ) {
                 var songCount = Object.keys(songListData).length;
@@ -175,7 +177,7 @@ function getSongListFromAPI(webApiUrl){
                     RenderSongList(songListData);
                     showAlert(songCount + " song(s) loaded.", "alert-success");
                     showDiv("searchbar", true);
-                    showDiv("loader", false);
+                    // showDiv("loader", false);
                 } else {
                     showError("API responded, but no songs were loaded.");
                 }
@@ -188,6 +190,10 @@ function getSongListFromAPI(webApiUrl){
             }
         }
     };
+    xmlhttp.ontimeout = function() {
+        showDiv("loader", false);
+        showError("Timeout waiting for API to respond.");
+    }
     xmlhttp.open("GET", webApiUrl, true);
     xmlhttp.send();
 }
