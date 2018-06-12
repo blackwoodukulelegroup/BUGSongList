@@ -1,3 +1,5 @@
+
+
 function makeCardLink(className, href, text){
     if ( href != '' ) {
         var link = document.createElement("a");
@@ -8,17 +10,6 @@ function makeCardLink(className, href, text){
         link.appendChild(document.createTextNode(text));
         return link;
     }  else { return null }
-}
-
-function showDiv(divID, showStatus){
-    var x = document.getElementById(divID);
-    if ( x ) {
-        if ( showStatus ) {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
-        }
-    }
 }
 
 function assignAttributToCard(card, attributeName, attributeType, attributeValue){
@@ -132,34 +123,6 @@ function RenderSongList(songList){
 
 }
 
-function emptyContainer(element){
-    while (element.firstChild) {
-        element.removeChild(element.firstChild);
-    }
-}
-
-function getAlert(messageText, classNames){
-    var alertDiv = document.createElement("div");
-    alertDiv.className = "alert " + classNames;
-    alertDiv.appendChild(document.createTextNode(messageText));
-    return alertDiv;
-}
-
-function showAlert(messageText, classNames){
-    var container = document.getElementById("alertDiv");
-    emptyContainer(container);
-    container.appendChild(getAlert(messageText, classNames));
-}
-
-function hideAlert(){
-    emptyContainer(document.getElementById("alertDiv"));
-}
-
-function showError(errorMessage){
-    _LTracker.push({'event':'error', 'data':errorMessage});
-    showAlert(errorMessage + " Please try again later, but if the behaviour persists, please notify BUG admins.", "alert-danger");
-}
-
 function getSongListFromAPI(webApiUrl){
 
     showDiv("searchbar", false);
@@ -217,11 +180,3 @@ function searchSongs(){
 
 }
 
-
-// Global var to hold list of songs
-var songListData = {};
-
-// Make the initial call to load data from API
-var apiURL = "https://script.google.com/macros/s/AKfycbx-0s1grPv0Wj_wXZUDRggB7Eac_c4TGHkMQ1aNOcNv41eCeg/exec"
-
-getSongListFromAPI(apiURL + "?browser=" + encodeURI(navigator.appName) + "&browserVersion=" + encodeURI(navigator.appVersion));
