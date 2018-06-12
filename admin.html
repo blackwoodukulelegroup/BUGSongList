@@ -23,6 +23,7 @@
                 <a class="btn btn-primary mt-1" href="https://drive.google.com/open?id=13udLJf_IUVWq7uW1T8H3V_BUCiTPGPC1" target="_blank">Folder (for PDFs)</a>
                 <a class="btn btn-primary mt-1" href="https://script.google.com/macros/s/AKfycbx-0s1grPv0Wj_wXZUDRggB7Eac_c4TGHkMQ1aNOcNv41eCeg/exec?command=flushcache" target="_blank">Flush API Cache</a>
             </div>
+            <div id="alertDiv"></div>
             <div class="row">
                 <div class="col-12">
                     <p><strong>N.B.</strong> To add to the list, you need to either log on with the BUG Google account, or had the necessary permissions granted to your own Google account. Permissions are documented in <a href="https://drive.google.com/open?id=1wUfwAj8hf3QBzEA6aQYbQonxJ4U7p3PezHvcqAnXVNU" target="_blank">BUG Song List - How It Works</a></p>
@@ -55,8 +56,30 @@
                         <br>If you still can't see the entry, or it doesn't look right, go back to the <a href="https://drive.google.com/open?id=13udLJf_IUVWq7uW1T8H3V_BUCiTPGPC1" target="_blank">BUG Chord Charts folder</a> and check that the name is in the right format.
                     </li>
                 </ol>
+                <div id="badfiles" style="display:none">
+                    <h3>Files with incorrectly formatted names</h3>
+                    <p>The following files have names that cannot be parsed into 'Artist', 'Song' and 'Chart'. </p>
+                    <ol>
+                        <div id="badfilelist">
+
+                        </div>
+                    </ol>
+                </div>
                 <p>-end of the page-</p>
             </div>
         </div>
+
+
+        <!-- API constants code -->
+        <script src="js/bugsonglistapi.js"></script>
+
+        <script src="js/bugsonglistlib.js"></script>
+
+        <script src="js/bugsonglistadmin.js"></script>
+
+        <script>
+            getBadFileCount(apiURL + "?command=getbadfiles");
+        </script>
+
     </body>
 </html>
