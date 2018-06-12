@@ -8,7 +8,7 @@ function showBadFiles(badFiles){
         listItem.appendChild(link);
         list.appendChild(listItem);
     });
-    showDiv("badfiles", true);
+    $("#badfiles").show();
 }
 
 function getBadFileCount(webApiUrl){
@@ -16,17 +16,12 @@ function getBadFileCount(webApiUrl){
     xmlhttp.timeout = 30000;
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            //showDiv("loader", false);
             var badFiles = JSON.parse(this.responseText);
             if ( badFiles ) {
                 var badFileCount = Object.keys(badFiles).length;
                 if ( badFileCount == 0 ){
                     showAlert("Files in the BUG folder are all correctly named.", "alert-success");
                 } else {
-                    // showAlert('WARNING! There are ' + badFileCount + ' file(s) in the BUG folder with name(s) in the wrong format.', 'alert-warning');
-                    
-                                    // message: {preLinkText, postLinkText}
-                                    // link: {href, title, text, target}
                     showLinkAlert(  {   preLinkText:'WARNING! There are ' + badFileCount + ' file(s) in the BUG folder with name(s) in the wrong format. Click ',
                                         postLinkText:' to review them.'}, 
                                     {   href: '#badfiles',

@@ -1,5 +1,4 @@
 
-
 function makeCardLink(className, href, text){
     if ( href != '' ) {
         var link = document.createElement("a");
@@ -117,44 +116,42 @@ function RenderSongList(songList){
     }
 
     // update the DOM
-    var songcontainer = document.getElementById("songcontainer")
-    emptyContainer(songcontainer);
-    songcontainer.appendChild(container);
+    $("#songcontainer").empty().append(container);
 
 }
 
 function getSongListFromAPI(webApiUrl){
 
-    showDiv("searchbar", false);
+    $('#loader').show();
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.timeout = 30000;
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            showDiv("loader", false);
+            $("#loader").hide();
             songListData = JSON.parse(this.responseText);
             if ( songListData ) {
                 var songCount = Object.keys(songListData).length;
                 if ( songCount > 0 ){
                     _LTracker.push({'event':'API Success', 'data':songCount});
                     RenderSongList(songListData);
-                    showAlert(songCount + " song(s) loaded.", "alert-success");
-                    showDiv("searchbar", true);
+                    showAlert(songCount + " song(s) loaded", "alert-success");
+                    $("#searchbar").show();
                 } else {
-                    showError("API responded, but no songs were loaded.");
+                    showError("API responded, but no songs were loaded");
                 }
             } else {
-                showError("Failed to load the song list from API.");
+                showError("Failed to load the song list from API");
             }
         } else {
             if (this.readyState == 4) {
-                showError("Failed to load the song list from API.");
+                showError("Failed to load the song list from API");
             }
         }
     };
     xmlhttp.ontimeout = function() {
-        showDiv("loader", false);
-        showError("Timeout waiting for API to respond.");
+        $("#loader").hide();
+        showError("Timeout waiting for API to respond");
     }
     xmlhttp.open("GET", webApiUrl, true);
     xmlhttp.send();

@@ -5,6 +5,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         
+        <script src="js/jquery-3.3.1.min.js"></script>
+
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
 
@@ -56,7 +58,7 @@
 
             <div id="alertDiv"></div>
 
-            <div id="searchbar">
+            <div id="searchbar" style="display:none">
                 <form id="searchForm" onsubmit="searchSongs(); return false">
                     <div class="form-group row mb-2">
                         <div class="col-md-12">
@@ -67,7 +69,7 @@
             </div>
 
             <div id="songcontainer"></div>
-            <div id="loader"></div>
+            <div id="loader" style="display:none"></div>
             <hr>
 
         </div>
@@ -87,7 +89,10 @@
             var songListData = {};
 
             // Initiate request to collect song list
-            getSongListFromAPI(apiURL + "?browser=" + encodeURI(navigator.appName) + "&browserVersion=" + encodeURI(navigator.appVersion));
+
+            $(document).ready(function(){
+                getSongListFromAPI(apiURL + "?browser=" + encodeURI(navigator.appName) + "&browserVersion=" + encodeURI(navigator.appVersion));
+            });
        
         </script>
                             
