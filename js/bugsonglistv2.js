@@ -125,7 +125,6 @@ function getSongListFromAPI(webApiUrl){
     $('#loader').show();
 
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.timeout = 30000;
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             $("#loader").hide();
@@ -154,6 +153,7 @@ function getSongListFromAPI(webApiUrl){
         showError("Timeout waiting for API to respond");
     }
     xmlhttp.open("GET", webApiUrl, true);
+    xmlhttp.timeout = 30000;
     xmlhttp.send();
 }
 
