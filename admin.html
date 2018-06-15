@@ -21,15 +21,15 @@
             <div class="jumbotron">
                 <h1>BUG Song List - Admin</h1>
                 <hr>
-                <a class="btn btn-primary mt-1" href="https://drive.google.com/open?id=1knci7kb7oMC2r_geCIu5o_J2wy-Px1kdoHH_0fnq5IA" target="_blank">Spreadsheet (for links)</a>
+                <!-- <a class="btn btn-primary mt-1" href="https://drive.google.com/open?id=1knci7kb7oMC2r_geCIu5o_J2wy-Px1kdoHH_0fnq5IA" target="_blank">Spreadsheet (for links)</a>
                 <a class="btn btn-primary mt-1" href="https://drive.google.com/open?id=13udLJf_IUVWq7uW1T8H3V_BUCiTPGPC1" target="_blank">Folder (for PDFs)</a>
                 <a class="btn btn-primary mt-1" href="https://script.google.com/macros/s/AKfycbx-0s1grPv0Wj_wXZUDRggB7Eac_c4TGHkMQ1aNOcNv41eCeg/exec?command=flushcache" target="_blank">Flush API Cache</a>
+                <a class="btn btn-primary mt-1" href="index.html?nocache=1" target="_blank">Song List (no cache)</a> -->
             </div>
             <div id="alertDiv"></div>
             <div class="row">
                 <div class="col-12">
-                    <p><strong>N.B.</strong> To add to the list, you need to either log on with the BUG Google account, or had the necessary permissions granted to your own Google account. Permissions are documented in <a href="https://drive.google.com/open?id=1wUfwAj8hf3QBzEA6aQYbQonxJ4U7p3PezHvcqAnXVNU" target="_blank">BUG Song List - How It Works</a></p>
-                    <h2>Adding links to external sites/PDFs</h2>
+                    <h2>Adding links to PDFs on other sites e.g. Scorpex</h2>
                 <ol>
                     <li>Open the <a href="https://drive.google.com/open?id=1knci7kb7oMC2r_geCIu5o_J2wy-Px1kdoHH_0fnq5IA" target="_blank">BUG chord Charts</a> spreadsheet and select the <strong>Manual Songs</strong> sheet</li>
                     <li>Add an entry at the end of the list as follows:</li>
@@ -41,11 +41,11 @@
                         <li>AttributeValue - The link to the PDF or song page e.g. <strong>https://scorpexuke.com/pdffiles/26_Miles.pdf</strong></li>
                     </ul>
                     <li>The sheet should save automatically (no need to do File/Save)</li>
-                    <li>Open up the <a href="index.html" target="_blank">Song List</a> and check that the new entry appears.
+                    <li>Open up the <a href="index.html?nocache=1" target="_blank">Song List</a> and check that the new entry appears.
                         <br>If you can't see the entry, try doing a full browser refresh by pressing <kbd><kbd>ctrl</kbd> + <kbd>F5</kbd></kbd>.
                         <br>If you still can't see the entry, re-open the spreadsheet and check the entry is correct.</li>
                 </ol>
-                <h2>Adding custom PDFs</h2>
+                <h2>Adding custom (BUG) PDFs</h2>
                 <ol>
                     <li>PDFs need to be named in this format: [Song Title] - [Artist Name] - BUG ([key]).PDF
                         <br>e.g. <strong>26 Miles - The Four Preps - BUG (C).pdf</strong> 
@@ -53,7 +53,7 @@
                         <br>N.B. You <strong>must</strong> leave spaces around the hyphens that separate the Title, Artitst and Chart Description
                     </li>
                     <li>Upload the PDF file to <a href="https://drive.google.com/open?id=13udLJf_IUVWq7uW1T8H3V_BUCiTPGPC1" target="_blank">BUG Chord Charts folder</a> in the Blackwood Uke Group Google Drive.</li>
-                    <li>Open up the <a href="index.html" target="_blank">Song List</a> and check that the new entry appears.
+                    <li>Open up the <a href="index.html?nocache=1" target="_blank">Song List</a> and check that the new entry appears.
                         <br>If you can't see the entry, try doing a full browser refresh by pressing <kbd><kbd>ctrl</kbd> + <kbd>F5</kbd></kbd>.
                         <br>If you still can't see the entry, or it doesn't look right, go back to the <a href="https://drive.google.com/open?id=13udLJf_IUVWq7uW1T8H3V_BUCiTPGPC1" target="_blank">BUG Chord Charts folder</a> and check that the name is in the right format.
                     </li>
@@ -67,6 +67,12 @@
                         </div>
                     </ol>
                 </div>
+                <h3>Useful Info</h3>
+                <ol>
+                    <li>To add to the list, you need to either log on with the BUG Google account, or had the necessary permissions granted to your own Google account. Permissions are documented in <a href="https://drive.google.com/open?id=1wUfwAj8hf3QBzEA6aQYbQonxJ4U7p3PezHvcqAnXVNU" target="_blank">BUG Song List - How It Works</a>.</li>
+                    <li>The song list uses a 'cache', which only updates every 10 minutes. This means that newly added items (links or PDFs) probably won't appear straight away. The 'Song List' links on THIS page will BYPASS the cache and show results immediately.</li>
+                    <li>If necessary, you can <a href="https://script.google.com/macros/s/AKfycbx-0s1grPv0Wj_wXZUDRggB7Eac_c4TGHkMQ1aNOcNv41eCeg/exec?command=flushcache" target="_blank">flush the Song List cache</a>.</li>
+                </ol>
                 <p>-end of the page-</p>
             </div>
         </div>
