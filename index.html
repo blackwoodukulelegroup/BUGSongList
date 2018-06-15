@@ -88,10 +88,18 @@
             // Global var to hold song list
             var songListData = {};
 
-            // Initiate request to collect song list
+            function getSearchParams(k){
+                var p={};
+                location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v})
+                return k?p[k]:p;
+            }
 
+            // Initiate request to collect song list
             $(document).ready(function(){
-                getSongListFromAPI(apiURL + "?browser=" + encodeURI(navigator.appName) + "&browserVersion=" + encodeURI(navigator.appVersion));
+                var noCache = getSearchParams("nocache");
+                var fullApiUrl = apiURL + "?" + "browser=" + encodeURI(navigator.appName) + "&browserVersion=" + encodeURI(navigator.appVersion)
+                if ( noCache ) { fullApiUrl += "&nocache=" + noCache }
+                getSongListFromAPI( fullApiUrl );
             });
        
         </script>
