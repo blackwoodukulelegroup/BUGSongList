@@ -132,7 +132,7 @@ function getSongListFromAPI(webApiUrl){
             if ( songListData ) {
                 var songCount = Object.keys(songListData).length;
                 if ( songCount > 0 ){
-                    _LTracker.push({'event':'API Success', 'data':songCount});
+                    // _LTracker.push({'event':'API Success', 'data':songCount});
                     RenderSongList(songListData);
                     showAlert(songCount + " song(s) loaded", "alert-success");
                     $("#searchbar").show();
