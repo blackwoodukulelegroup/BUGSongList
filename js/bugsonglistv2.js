@@ -132,22 +132,21 @@ function getSongListFromAPI(webApiUrl){
             if ( songListData ) {
                 var songCount = Object.keys(songListData).length;
                 if ( songCount > 0 ){
-                    // _LTracker.push({'event':'API Success', 'data':songCount});
-                    ga('send', 'event', 'API', 'Load', 'Success', songCount);
+                    gtag('event', 'Load', { 'event_category': 'API', 'event_label': 'Success', 'value': songCount });
                     RenderSongList(songListData);
                     showAlert(songCount + " song(s) loaded", "alert-success");
                     $("#searchbar").show();
                 } else {
-                    ga('send','event','API','Load','Warning', 0);
+                    gtag('event', 'Load', { 'event_category': 'API', 'event_label': 'Warning', 'value': 0 });
                     showError("API responded, but no songs were loaded");
                 }
             } else {
-                ga('send','event','API','Load','Error');
+                gtag('event', 'Load', { 'event_category': 'API', 'event_label': 'Error', 'value': 0 });
                 showError("Failed to load the song list from API");
             }
         } else {
             if (this.readyState == 4) {
-                ga('send','event','API','Load','Error', this.status);
+                gtag('event', 'Load', { 'event_category': 'API', 'event_label': 'Error', 'value': this.status });
                 showError("Failed to load the song list from API");
             }
         }
@@ -169,14 +168,13 @@ function searchSongs(){
         var filteredSongs = filterSongList(songListData, searchTerm);
         var filteredSongCount = Object.keys(filteredSongs).length;
 
-        ga('send','event','Search',searchTerm, filteredSongCount);
-        // ga('send','event','Search','searchTerm', 0);
-
         if ( filteredSongCount > 0 ) {
             RenderSongList(filteredSongs);
             showAlert("Showing " + filteredSongCount + " song(s) that match '" + searchTerm + "'", "alert-success");
+            gtag('event', 'Hit', { 'event_category': 'Search', 'event_label': searchTerm, 'value': filteredSongCount });
         } else {
             showAlert("No songs matching '" + searchTerm + "'", "alert-warning");
+            gtag('event', 'Miss', { 'event_category': 'Search', 'event_label': searchTerm, 'value': 0 });
         }
     } else {
         RenderSongList(songListData);
