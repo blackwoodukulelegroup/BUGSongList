@@ -133,23 +133,28 @@ function getSongListFromAPI(webApiUrl){
                 var songCount = Object.keys(songListData).length;
                 if ( songCount > 0 ){
                     // _LTracker.push({'event':'API Success', 'data':songCount});
+                    ga('send', 'event', 'API', 'Load', 'Success', songCount);
                     RenderSongList(songListData);
                     showAlert(songCount + " song(s) loaded", "alert-success");
                     $("#searchbar").show();
                 } else {
+                    ga('send','event','API','Load','Warning', 0);
                     showError("API responded, but no songs were loaded");
                 }
             } else {
+                ga('send','event','API','Load','Error');
                 showError("Failed to load the song list from API");
             }
         } else {
             if (this.readyState == 4) {
+                ga('send','event','API','Load','Error', this.status);
                 showError("Failed to load the song list from API");
             }
         }
     };
     xmlhttp.ontimeout = function() {
         $("#loader").hide();
+        ga('send','event','API','Load','Timeout');
         showError("Timeout waiting for API to respond");
     }
     xmlhttp.open("GET", webApiUrl, true);
@@ -163,6 +168,9 @@ function searchSongs(){
     if ( searchTerm ) {
         var filteredSongs = filterSongList(songListData, searchTerm);
         var filteredSongCount = Object.keys(filteredSongs).length;
+
+        ga('send','event','Search',searchTerm, filteredSongCount);
+        // ga('send','event','Search','searchTerm', 0);
 
         if ( filteredSongCount > 0 ) {
             RenderSongList(filteredSongs);
