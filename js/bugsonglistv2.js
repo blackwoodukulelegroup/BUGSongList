@@ -11,6 +11,14 @@ function makeCardLink(className, href, text){
     }  else { return null }
 }
 
+function songClick(songLink){
+    var card = songLink.parentNode;
+    var songTitle = card.getElementsByClassName("card-title")[0].innerText;
+    var artistName = card.getElementsByClassName("card-subtitle")[0].innerText;
+    var chartName = songLink.innerText;
+    gtag('event', songTitle + " (" + artistName + ")", { 'event_category': 'Songs', 'event_label': chartName, 'value': 0 });
+}
+
 function assignAttributToCard(card, attributeName, attributeType, attributeValue){
     var cardBody = card.getElementsByClassName('card-body')[0];
     if ( attributeValue != '' && attributeType != '' && attributeName != '' ) {
@@ -18,7 +26,10 @@ function assignAttributToCard(card, attributeName, attributeType, attributeValue
             case 'URL':
             {
                 var newLink = makeCardLink("btn btn-primary", attributeValue, attributeName);
-                if ( newLink ) { cardBody.appendChild( newLink ); }
+                if ( newLink ) { 
+                    newLink.setAttribute('onclick', "songClick(this);");
+                    cardBody.appendChild( newLink ); 
+                }
                 break;
             }
             case 'Text':
