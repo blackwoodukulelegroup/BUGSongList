@@ -143,29 +143,29 @@ function getSongListFromAPI(webApiUrl){
             if ( songListData ) {
                 var songCount = Object.keys(songListData).length;
                 if ( songCount > 0 ){
+                    gtag('event', 'Load', { 'event_category': 'API', 'event_label': 'Success', 'value': songCount });
                     RenderSongList(songListData);
                     showAlert(songCount + " song(s) loaded", "alert-success");
                     $("#searchbar").show();
-                    // gtag('event', 'Load', { 'event_category': 'API', 'event_label': 'Success', 'value': songCount });
                 } else {
+                    gtag('event', 'Load', { 'event_category': 'API', 'event_label': 'Warning', 'value': 0 });
                     showError("API responded, but no songs were loaded");
-                    gtag('event', 'Load', { 'event_category': 'API', 'event_label': 'Warning: Empty Song List', 'value': 0 });
                 }
             } else {
+                gtag('event', 'Load', { 'event_category': 'API', 'event_label': 'Error', 'value': 0 });
                 showError("Failed to load the song list from API");
-                gtag('event', 'Load', { 'event_category': 'API', 'event_label': 'Error: API Parse Failed', 'value': 0 });
             }
         } else {
             if (this.readyState == 4) {
+                gtag('event', 'Load', { 'event_category': 'API', 'event_label': 'Error', 'value': this.status });
                 showError("Failed to load the song list from API");
-                gtag('event', 'Load', { 'event_category': 'API', 'event_label': 'Error: API Request Failed', 'value': this.status });
             }
         }
     };
     xmlhttp.ontimeout = function() {
         $("#loader").hide();
+        ga('send','event','API','Load','Timeout');
         showError("Timeout waiting for API to respond");
-        gtag('event', 'Load', { 'event_category': 'API', 'event_label': 'Error: API Request Timeout', 'value': 0 });
     }
     xmlhttp.open("GET", webApiUrl, true);
     xmlhttp.timeout = 30000;
@@ -182,10 +182,10 @@ function searchSongs(){
         if ( filteredSongCount > 0 ) {
             RenderSongList(filteredSongs);
             showAlert("Showing " + filteredSongCount + " song(s) that match '" + searchTerm + "'", "alert-success");
-            gtag('event', 'Search Hit', { 'event_category': 'Search', 'event_label': searchTerm, 'value': filteredSongCount });
+            gtag('event', 'Hit', { 'event_category': 'Search', 'event_label': searchTerm, 'value': filteredSongCount });
         } else {
             showAlert("No songs matching '" + searchTerm + "'", "alert-warning");
-            gtag('event', 'Search Miss', { 'event_category': 'Search', 'event_label': searchTerm, 'value': 0 });
+            gtag('event', 'Miss', { 'event_category': 'Search', 'event_label': searchTerm, 'value': 0 });
         }
     } else {
         RenderSongList(songListData);
@@ -193,22 +193,4 @@ function searchSongs(){
     }
 
 }
-
-// Global variable to hold the song list data
-var songListData = {};
-
-// Initiate request to collect song list
-$(document).ready(function(){
-    var apiParams = [];
-    var paramList = ["nocache"];
-    paramList.forEach(function(paramName) {
-        var paramValue = getSearchParams(paramName);
-        if ( paramValue ) { apiParams.push(paramName + "=" + paramValue) }
-    });
-    var fullApiUrl = apiURL;
-    if ( apiParams.length > 0 ) {
-        fullApiUrl += ( "?" + apiParams.join("&") )
-    }
-    getSongListFromAPI( fullApiUrl );
-});
 
