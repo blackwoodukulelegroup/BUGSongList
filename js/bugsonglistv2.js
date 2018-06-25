@@ -127,26 +127,27 @@ function RenderSongList(songList){
     }
 
     // update the DOM
-    $("#songcontainer").empty().append(container);
+    var element = document.getElementById("songcontainer");
+    element.innerHTML = '';
+    element.appendChild(container);
 
 }
 
 function getSongListFromAPI(webApiUrl){
 
-    $('#loader').show();
+    document.getElementById('loader').style.display = '';
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            $("#loader").hide();
+            document.getElementById('loader').style.display = 'none';
             songListData = JSON.parse(this.responseText);
             if ( songListData ) {
                 var songCount = Object.keys(songListData).length;
                 if ( songCount > 0 ){
                     RenderSongList(songListData);
                     showAlert(songCount + " song(s) loaded", "alert-success");
-                    $("#searchbar").show();
-                    // gtag('event', 'Load', { 'event_category': 'API', 'event_label': 'Success', 'value': songCount });
+                    document.getElementById('searchbar').style.display = '';
                 } else {
                     showError("API responded, but no songs were loaded");
                     gtag('event', 'Load', { 'event_category': 'API', 'event_label': 'Warning: Empty Song List', 'value': 0 });
@@ -163,7 +164,7 @@ function getSongListFromAPI(webApiUrl){
         }
     };
     xmlhttp.ontimeout = function() {
-        $("#loader").hide();
+        document.getElementById('loader').style.display = 'none';
         showError("Timeout waiting for API to respond");
         gtag('event', 'Load', { 'event_category': 'API', 'event_label': 'Error: API Request Timeout', 'value': 0 });
     }
@@ -197,8 +198,7 @@ function searchSongs(){
 // Global variable to hold the song list data
 var songListData = {};
 
-// Initiate request to collect song list
-$(document).ready(function(){
+ready(function(){
     var apiParams = [];
     var paramList = ["nocache"];
     paramList.forEach(function(paramName) {

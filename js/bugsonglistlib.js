@@ -6,7 +6,9 @@ function getAlert(messageText, classNames){
 }
 
 function showAlert(messageText, classNames){
-    $("#alertDiv").empty().append(getAlert(messageText, classNames));
+    var element = document.getElementById("alertDiv");
+    element.innerHTML = "";
+    element.appendChild(getAlert(messageText, classNames));
 }
 
 // message: {preLinkText, postLinkText}
@@ -23,7 +25,9 @@ function showLinkAlert(message, link, classNames){
     alertDiv.appendChild(document.createTextNode(message.preLinkText));
     alertDiv.appendChild(a);
     alertDiv.appendChild(document.createTextNode(message.postLinkText));
-    $("#alertDiv").empty().append(alertDiv);
+    var element = document.getElementById("alertDiv");
+    element.innerHTML = '';
+    element.appendChild(alertDiv);
 }
 
 function showError(errorMessage){
@@ -35,3 +39,11 @@ function getSearchParams(k){
     location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v})
     return k?p[k]:p;
 }
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
+      fn();
+    } else {
+      document.addEventListener('DOMContentLoaded', fn);
+    }
+  }

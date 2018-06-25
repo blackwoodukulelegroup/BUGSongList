@@ -8,7 +8,7 @@ function showBadFiles(badFiles){
         listItem.appendChild(link);
         list.appendChild(listItem);
     });
-    $("#badfiles").show();
+    document.getElementById("badfiles").style.display = '';
 }
 
 function getBadFileCount(webApiUrl){
@@ -47,3 +47,7 @@ function getBadFileCount(webApiUrl){
     xmlhttp.timeout = 30000;
     xmlhttp.send();
 }
+
+ready(function(){
+    getBadFileCount(apiURL + "?command=getbadfiles");
+});

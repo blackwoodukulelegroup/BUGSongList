@@ -12,12 +12,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <script src="js/jquery-3.3.1.min.js"></script>
-    
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/custom.css">
 
     <title>BUG Song List - Admin</title>
@@ -27,11 +22,6 @@
         <div class="container">
             <div class="jumbotron">
                 <h1>BUG Song List - Admin</h1>
-                <hr>
-                <!-- <a class="btn btn-primary mt-1" href="https://drive.google.com/open?id=1knci7kb7oMC2r_geCIu5o_J2wy-Px1kdoHH_0fnq5IA" target="_blank">Spreadsheet (for links)</a>
-                <a class="btn btn-primary mt-1" href="https://drive.google.com/open?id=13udLJf_IUVWq7uW1T8H3V_BUCiTPGPC1" target="_blank">Folder (for PDFs)</a>
-                <a class="btn btn-primary mt-1" href="https://script.google.com/macros/s/AKfycbx-0s1grPv0Wj_wXZUDRggB7Eac_c4TGHkMQ1aNOcNv41eCeg/exec?command=flushcache" target="_blank">Flush API Cache</a>
-                <a class="btn btn-primary mt-1" href="index.html?nocache=1" target="_blank">Song List (no cache)</a> -->
             </div>
             <div id="alertDiv"></div>
             <div class="row">
@@ -69,9 +59,7 @@
                     <h3>Files with incorrectly formatted names</h3>
                     <p>The following files have names that cannot be parsed into 'Artist', 'Song' and 'Chart'. </p>
                     <ol>
-                        <div id="badfilelist">
-
-                        </div>
+                        <div id="badfilelist"></div>
                     </ol>
                 </div>
                 <h3>Useful Info</h3>
@@ -84,19 +72,9 @@
             </div>
         </div>
 
-
-        <!-- API constants code -->
         <script src="js/bugsonglistapi.js"></script>
-
         <script src="js/bugsonglistlib.js"></script>
-
         <script src="js/bugsonglistadmin.js"></script>
-
-        <script>
-            $(document).ready(function(){
-                getBadFileCount(apiURL + "?command=getbadfiles");
-            });
-        </script>
 
     </body>
 </html>
