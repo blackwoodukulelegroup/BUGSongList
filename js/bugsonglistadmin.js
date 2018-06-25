@@ -12,6 +12,7 @@ function showBadFiles(badFiles){
 }
 
 function getBadFileCount(webApiUrl){
+    showAlert("Checking names of files in BUG folder ...", "alert-warning");
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
