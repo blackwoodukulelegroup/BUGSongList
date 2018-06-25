@@ -27,6 +27,11 @@ function showLinkAlert(message, link, classNames){
 }
 
 function showError(errorMessage){
-    _LTracker.push({'event':'error', 'data':errorMessage});
     showAlert(errorMessage + " Please try again later, but if the behaviour persists, please notify BUG admins.", "alert-danger");
+}
+
+function getSearchParams(k){
+    var p={};
+    location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v})
+    return k?p[k]:p;
 }
