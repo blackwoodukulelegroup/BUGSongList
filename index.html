@@ -46,16 +46,6 @@
 
         <title>BUG Song List</title>
 
-        <!--
-        <script type="text/javascript" src="//cloudfront.loggly.com/js/loggly.tracker-latest.min.js" async></script>
-        <script>
-            var _LTracker = _LTracker || [];
-            _LTracker.push({'logglyKey': '546f2e05-064b-4e1a-b977-8482699031d3',
-                'sendConsoleErrors' : true,
-                'tag' : 'loggly-jslogger'  });
-        </script>
-        -->
-
     </head>
     <body>
         <div class="container">
@@ -91,32 +81,8 @@
         <!-- Library functions -->
         <script src="js/bugsonglistlib.js"></script>
         
-        <!-- Song List Code -->
+        <!-- Song List Code for this page -->
         <script src="js/bugsonglistv2.js"></script>
 
-        <!-- specific to this page-->
-        <script>
-            // Global var to hold song list
-            var songListData = {};
-
-            function getSearchParams(k){
-                var p={};
-                location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v})
-                return k?p[k]:p;
-            }
-
-            // Initiate request to collect song list
-            $(document).ready(function(){
-                var noCache = getSearchParams("nocache");
-                var fullApiUrl = apiURL + "?" + "browser=" + encodeURI(navigator.appName) + "&browserVersion=" + encodeURI(navigator.appVersion)
-                if ( noCache ) { fullApiUrl += "&nocache=" + noCache }
-                getSongListFromAPI( fullApiUrl );
-            });
-       
-        </script>
-                            
-        <!-- <script>
-            _LTracker.push({'event':'Page Load', 'data':''});
-        </script> -->
     </body>
 </html>
