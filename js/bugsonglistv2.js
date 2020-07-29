@@ -67,10 +67,17 @@ function makeNewCard(songInfo){
     cardBody.appendChild(cardBodyText);
 
     for (var key in songInfo){
-        if ( ["url", "text"].indexOf(key.toLowerCase()) >= 0  ) {
-            for (var item in songInfo[key]){
-                assignAttributToCard(card, item, key, songInfo[key][item]);
-            }
+        switch (key.toLowerCase()) {
+            case "url":
+                for (var item in songInfo[key]){
+                    assignAttributToCard(card, item, key, songInfo[key][item].URL);
+                }
+                break;
+            case "text":
+                for (var item in songInfo[key]){
+                    assignAttributToCard(card, item, key, songInfo[key][item]);
+                }
+                break;
         }
     }
     return card;
