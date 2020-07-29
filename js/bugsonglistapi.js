@@ -7,3 +7,6 @@ var apiURL = "https://script.google.com/macros/s/AKfycbx-0s1grPv0Wj_wXZUDRggB7Ea
 // access token
 // if this stops work
 // ya29.a0AfH6SMCruOmck7XX5yJVAcMXi_GOnMgjVOtTNzzetiyURCUl3UC9CbnWLuq-X_qHWIBDLpEl0-rBmoBDiNhqNDzYpXSUjKzUl7bvqFtSxTJDwAhUPzRfFrjrk7Gxp-2pQISEMh3Nu6PUtBHz43tXoU0g_TJ26nUC2t6Xjg
+
+// how to use google-apps-script dev mode with access token:
+// https://github.com/tanaikech/taking-advantage-of-Web-Apps-with-google-apps-script#howtousedevmode

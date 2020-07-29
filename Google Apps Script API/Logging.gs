@@ -1,44 +1,57 @@
-function generateID(length) {
+function LogToGoogleDoc(folderID, logName) {
   
-    var text = ""
-    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-
-    for(var i = 0; i < length; i++)  {
-        text += possible.charAt(Math.floor(Math.random() * possible.length))
-    }
-
-    return text
-}
-
-function openLog(spreadsheetID, sheetName){
+  var folder = DriveApp.getFolderById(folderID);
+  if ( ! folder ) { return null; }
   
-  var logSpreadsheet = SpreadsheetApp.openById(spreadsheetID);
-  var logSheet = logSpreadsheet.getSheetByName(sheetName);
-  return {log: logSheet, sessionID: generateID(8)};
-
-}
-
-function logIt(logSheet, eventInfo, detail) {
+  var files = folder.getFilesByName(logName);
+  if ( ! files ) { return null; }
   
-  if ( logSheet && eventInfo ) {
-    var d = new Date();
-    logSheet.log.appendRow([d.toLocaleString(), logSheet.sessionID, eventInfo, detail]);
-    Logger.log("%s, %s", eventInfo, detail);
+  if ( files.hasNext() ) {
+    while ( files.hasNext() ) {
+      var logFile = files.next();
+    }  
   } else {
-    Logger.log(eventInfo + ": " + detail);
+    var tempName = logName + '_temporary_file_' + new Date();
+    Logger.log(tempName);
+    var doc = DocumentApp.create(tempName);
+    if ( doc ) {
+      var logFile = DriveApp.getFileById(doc.getId());
+      var oldFolder = logFile.getParents().next();
+      folder.addFile(logFile);
+      oldFolder.removeFile(logFile);
+      doc.setName(logName);
+      var docBody = doc.getBody();
+      var style = {};
+      style[DocumentApp.Attribute.FONT_FAMILY] = 'Courier New';
+      style[DocumentApp.Attribute.FONT_SIZE] = 10;
+      docBody.setAttributes(style);
+      docBody.setMarginBottom(5);
+      docBody.setMarginLeft(5);
+      docBody.setMarginRight(5);
+      docBody.setMarginTop(5);
+      docBody.setText('Created on ' + new Date());
+      doc.saveAndClose();
+    } else {
+      return null;
+    }
   }
-}
-
-function testLog(){
-
-  var scriptProperties = PropertiesService.getScriptProperties();
-  var logSpreadsheetID = scriptProperties.getProperty('logSpreadsheetID');
-  var logSheetName = scriptProperties.getProperty('logSheetName');
   
-  var log = openLog(logSpreadsheetID, logSheetName);
+  if ( ! logFile ) { return null; }
 
-  logIt(log, "test event 1", "test detail");
-  logIt(log, "test event 2", "test detail");
+  this.logFileID = logFile.getId();
+  this.logDoc = null;
   
-
+  this.append = function(message){
+    if ( ! this.logDoc ) {
+      this.logDoc = DocumentApp.openById(this.logFileID);
+    }
+    this.logDoc.getBody().appendParagraph(new Date().toLocaleString() + ' ' + message);
+  }
+  
+  this.close = function(){
+    if ( this.logDoc ) {
+      this.logDoc.saveAndClose();
+      this.logDoc = null;
+    }
+  }
 }
