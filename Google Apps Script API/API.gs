@@ -7,11 +7,9 @@ function getLinksFromSpreadsheet(docID, sheetName){
   var rangeRows = sheetRange.getHeight();
   var sheetValues = sheetRange.getValues();
   
-  var nullDate = new Date(0)
-  
   var results = [];
   for (i=1; i<rangeRows; i++) {
-    results.push( { "title":sheetValues[i][0], "artist":sheetValues[i][1], "attributeName":sheetValues[i][2], "attributeType":sheetValues[i][3], "attributeValue":sheetValues[i][4], "lastUpdated": nullDate } );
+    results.push( { "title":sheetValues[i][0], "artist":sheetValues[i][1], "attributeName":sheetValues[i][2], "attributeType":sheetValues[i][3], "attributeValue":sheetValues[i][4] } );
   }
   
   return results;
@@ -77,7 +75,16 @@ function transformResults(inputList){
   
   for (var i=0; i<inputList.length; i++){
     var inItem = inputList[i];
-    var keyName = inItem.title.toLowerCase();
+    
+    // 19/08/20 - modified keyName such that all non-alpha is stripped out
+    var keyName = inItem.title.toLowerCase().replace(/\W/g,'') + '_' + inItem.artist.toLowerCase().replace(/\W/g,'');
+    
+    // 19/08/20 - keyName change broke sort order in song list page - this line adds the '!' back to so that songs can be prioritised
+    if (inItem.title.trim().match("^!")) keyName = "!" + keyName;
+    
+    // 19/08/20 - following fix checks for '{' and re-adds at beginning of key
+    if (inItem.title.trim().match("^{.*}$")) keyName = "{" + keyName + "}";
+    
     var outItem = results[keyName];
     // Logger.log(inItem.title);
     if ( ! outItem ) {
