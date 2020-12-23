@@ -43,11 +43,12 @@ function getBadFileCount(webApiUrl){
     xmlhttp.ontimeout = function() {
         showError("Timeout waiting for API to respond.");
     }
-    xmlhttp.open("GET", webApiUrl, true);
+    xmlhttp.open("GET", webApiUrl + "?command=getbadfiles", true);
     xmlhttp.timeout = 30000;
     xmlhttp.send();
 }
 
 ready(function(){
-    getBadFileCount(apiURL + "?command=getbadfiles");
+    getBadFileCount(apiURL);
+    document.getElementById("flushCacheLink").href = apiURL + "?command=flushcache";
 });
