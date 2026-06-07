@@ -1,85 +1,90 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <!-- Required meta tags -->
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120905059-1"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'UA-120905059-1');
-        </script>
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/custom.css">
-        <link rel="stylesheet" href="css/loader.css">
+<head>
+    <!-- Required meta tags -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120905059-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-120905059-1');
+    </script>
 
-        <!-- favicon from https://www.favicon-generator.org/ -->
-        <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
-        <link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon-76x76.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
-        <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-icon-120x120.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png">
-        <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-icon-152x152.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
-        <link rel="icon" type="image/png" sizes="192x192"  href="/images/android-icon-192x192.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-        <link rel="manifest" href="/manifest.json">
-        <meta name="msapplication-TileColor" content="#ffffff">
-        <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
-        <meta name="theme-color" content="#ffffff">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>BUG Song List</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/loader.css">
 
-    </head>
-    <body>
-        <div class="container">
-            
-            <div class="jumbotron" > <!--  pb-3 pt-2 mb-2 -->
-                    <small><a style="float:right" href="admin.html">[#]</a></small>
-                    <a href="http://blackwoodukulelegroup.wordpress.com" role="button">BUG website</a>
-                    <h1>BUG Song List</h1>
-                    
-                    <div class="d-sm-none">
-                        <small>Visit <a href="https://scorpexuke.com/" target="_blank">Richard G's Ukulele Songbook.</a></small>
-                    </div>
-                        
-                    <div class="d-none d-sm-block">
-                        <small>Please visit &amp; support <a href="https://scorpexuke.com/" target="_blank">Richard G's Ukulele Songbook (Scorpex)</a>, the home of 1,300+ ukulele song charts.</small>
-                    </div>
-            </div>
-            <div id="noticeDiv" class="alert alert-info">
-                <a href="errorhelp.html">What to do if you get an 'Access to ... was denied' error message.</a>
-            </div>
-            <div id="alertDiv"></div>
-            
-            <div id="searchbar" style="display:none">
-                <form id="searchForm" onsubmit="searchSongs(); return false">
-                    <div class="form-group row mb-2">
-                        <div class="col-md-12">
-                            <input class="form-control" type="text" name="searchInput" id="searchInput" placeholder="Search on title/artist">
-                        </div>
-                    </div>
-                </form>
+    <!-- favicon from https://www.favicon-generator.org/ -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>BUG Song List</title>
+
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="jumbotron"> <!--  pb-3 pt-2 mb-2 -->
+            <small><a style="float:right" href="admin.html">[#]</a></small>
+            <a href="http://blackwoodukulelegroup.wordpress.com" role="button">BUG website</a>
+            <h1>BUG Song List</h1>
+
+            <div class="d-sm-none">
+                <small>Visit <a href="https://scorpexuke.com/" target="_blank">Richard G's Ukulele Songbook.</a></small>
             </div>
 
-            <div id="songcontainer"></div>
-            <div id="loader" style="display:none"></div>
-            <hr>
+            <div class="d-none d-sm-block">
+                <small>Please visit &amp; support <a href="https://scorpexuke.com/" target="_blank">Richard G's Ukulele
+                        Songbook (Scorpex)</a>, the home of 1,300+ ukulele song charts.</small>
+            </div>
+        </div>
+        <div id="noticeDiv" class="alert alert-info">
+            <a href="errorhelp.html">What to do if you get an 'Access to ... was denied' error message.</a>
+        </div>
+        <div id="alertDiv"></div>
 
+        <div id="searchbar" style="display:none">
+            <form id="searchForm" onsubmit="searchSongs(); return false">
+                <div class="form-group row mb-2">
+                    <div class="col-md-12">
+                        <input class="form-control" type="text" name="searchInput" id="searchInput"
+                            placeholder="Search on title/artist">
+                    </div>
+                </div>
+            </form>
         </div>
 
-        <script src="js/bugsonglistapi.js"></script>
-        <script src="js/bugsonglistlib.js"></script>
-        <script src="js/bugsonglistv2.js"></script>
+        <div id="songcontainer"></div>
+        <div id="loader" style="display:none"></div>
+        <hr>
 
-    </body>
+    </div>
+
+    <script src="js/bugsonglistapi.js?v=35"></script>
+    <script src="js/bugsonglistlib.js"></script>
+    <script src="js/bugsonglistv2.js"></script>
+
+</body>
+
 </html>
