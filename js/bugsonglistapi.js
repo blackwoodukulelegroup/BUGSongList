@@ -1,11 +1,5 @@
-// V20
-// var apiURL = "https://script.google.com/macros/s/AKfycbx-0s1grPv0Wj_wXZUDRggB7Eac_c4TGHkMQ1aNOcNv41eCeg/exec"
-                
-// V30
-// var apiURL = "https://script.google.com/macros/s/AKfycbzjh_JtaR2mWAer_QJFIbfozztxOpXMwPizbvTgeFvwlaCz1m1iTkc/exec"
-
-// V35 - enable v8
-var apiURL = "https://script.google.com/macros/s/AKfycbxGZYkrWtCEjsUpgJJV9sj8gzCJo6QyEEZtkHpgj0fe-Ow4hVpqccV52nWLzyGItyA/exec"
+const deploymentId = "AKfycbxGZYkrWtCEjsUpgJJV9sj8gzCJo6QyEEZtkHpgj0fe-Ow4hVpqccV52nWLzyGItyA"
+const apiURL = "https://script.google.com/macros/s/" + deploymentId + "/exec"
 
 // HEAD
 // var accessToken = "ya29.a0AfH6SMAwrKWqNEGwxbq4cV6xNoAeGNFFgUrqJio6jhihpd1fXSTpDdGyKEMh4_YfuuEXGpQS7abUTkcQx9TaX8MEfZOo3hyPCMG25p_NWwlakjTV3h5rP7f2c8849E_Mzfd5_vTbomNdG2epPBKyKdGLJptLav8DxFNtjA"

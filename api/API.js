@@ -21,9 +21,6 @@
 //   ...
 // }
 
-// this is just to test re-deployment
-
-
 function getLinksFromSpreadsheet(docID, sheetName){
   
   var doc = SpreadsheetApp.openById(docID);
