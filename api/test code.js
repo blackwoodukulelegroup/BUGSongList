@@ -24,7 +24,7 @@ function test_GetBadFiles(){
   var regExPattern = PropertiesService.getScriptProperties().getProperty("fileRegExPattern");
   var viewLinkTemplate = PropertiesService.getScriptProperties().getProperty("viewLinkTemplate");
   
-  var badFiles = GetFilesWithUnparseableNames(folderID, regExPattern, viewLinkTemplate);
+  var badFiles = getFilesWithUnparseableNames(folderID, regExPattern, viewLinkTemplate);
   if ( badFiles ) {
     Object.keys(badFiles).forEach(function(element){
       Logger.log("Filename: %s  URL: %s",element, badFiles[element]);                      
@@ -43,3 +43,15 @@ function test_GetBadFiles(){
 }
 
 // https://script.google.com/macros/s/AKfycbwU0YwFnwGdrGJlNKnwUsP8qCE8r7zGujtbDa66HA/dev?command=getbadfiles
+
+
+function testBetterLog(){
+
+  var sheetId = "18IRbJfnJe9dyi2URwOYasJDqdWuEI1L5xPWkJsj7k-g";
+
+  var Logger = useSpreadsheet(sheetId);
+  
+
+  Logger.log("hello");
+
+}
